@@ -14,18 +14,17 @@ func main() {
 		return
 	}
 
-	{
-	singleton:
-		switch os.Args[1] {
-		case "singleton1": //use sync.Once get a singleton instance
-			testSingleton("singleton1")
-		case "singleton2": //use DCL get a sinleton instance
-			testSingleton("singleton2")
-		default:
-			break singleton
-		}
+	//singleton:
+	switch os.Args[1] {
+	case "singleton1": //use sync.Once get a singleton instance
+		testSingleton("singleton1")
+		return
+	case "singleton2": //use DCL get a sinleton instance
+		testSingleton("singleton2")
+		return
 	}
 
+	fmt.Println("no this design model")
 }
 
 func testSingleton(model string) {
