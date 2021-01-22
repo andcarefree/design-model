@@ -16,7 +16,7 @@ func GetInstance2() *singleton2 {
 		mu.Lock()
 		defer mu.Unlock()
 		if instance2 == nil {
-			fmt.Println("new singleton!")
+			fmt.Println("new singleton2 !!!")
 			instance2 = new(singleton2)
 		}
 	}

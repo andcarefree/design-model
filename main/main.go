@@ -17,8 +17,10 @@ func main() {
 	{
 	singleton:
 		switch os.Args[1] {
+		case "singleton1": //use sync.Once get a singleton instance
+			testSingleton("singleton1")
 		case "singleton2": //use DCL get a sinleton instance
-			testSingleton2()
+			testSingleton("singleton2")
 		default:
 			break singleton
 		}
@@ -26,15 +28,23 @@ func main() {
 
 }
 
-func testSingleton2() {
+func testSingleton(model string) {
 	var wg sync.WaitGroup
 	count := 20
 	wg.Add(count)
 	for i := 0; i < count; i++ {
-		go func() {
-			fmt.Println(singleton.GetInstance2())
-			wg.Done()
-		}()
+		switch model {
+		case "singleton1":
+			go func() {
+				fmt.Println(singleton.GetInstance1())
+				wg.Done()
+			}()
+		case "singleton2":
+			go func() {
+				fmt.Println(singleton.GetInstance2())
+				wg.Done()
+			}()
+		}
 	}
 	wg.Wait()
 }

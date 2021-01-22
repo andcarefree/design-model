@@ -1,31 +1,20 @@
 package singleton
 
-import "sync"
+import (
+	"fmt"
+	"sync"
+)
 
-type Message struct {
-	Count int
-}
+type singleton1 int
 
-type messagePool struct {
-	pool *sync.Pool
-}
+var once sync.Once
+var instance1 *singleton1
 
-var msgPool *messagePool
-var once = &sync.Once{}
-
-func Instance() *messagePool {
+//GetInstance1 use sync.Once return a singleton1
+func GetInstance1() *singleton1 {
 	once.Do(func() {
-		msgPool = &messagePool{
-			pool: &sync.Pool{New: func() interface{} { return &Message{Count: 0} }},
-		}
+		fmt.Println("new instance1 !!!")
+		instance1 = new(singleton1)
 	})
-	return msgPool
-}
-
-func (m *messagePool) AddMsg(msg *Message) {
-	m.pool.Put(msg)
-}
-
-func (m *messagePool) GetMsg() *Message {
-	return m.pool.Get().(*Message)
+	return instance1
 }
